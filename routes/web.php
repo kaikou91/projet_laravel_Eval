@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\CritiqueControllers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +26,25 @@ Route::get('/', function () {
 
 Route::get('/anime/{id}', function ($id) {
   $anime = DB::select("SELECT * FROM animes WHERE id = ?", [$id])[0];
-  return view('anime', ["anime" => $anime]);
+  $critiques = DB::table('reviews')
+            ->join('users', 'user_id', '=', 'users.id')
+            ->join('animes', 'anime_id', '=', 'animes.id')
+            ->select('reviews.*', 'animes.*', 'users.username')
+            ->where('animes.id', '=', $id)
+            //->orderBy()
+            ->get();
+  return view('anime', ["critiques" => $critiques, "anime" => $anime]);
 });
 
-Route::get('/anime/{id}/new_review', function ($id) {
-  return view('new_review');
+
+// modifier la route 
+Route::get('/anime/{id}/new_review', function ($id) {  
+  if (Auth::user()){
+    $anime = DB::select("SELECT * FROM animes WHERE id = ?", [$id])[0];
+    return view('new_review', ["anime" => $anime]);
+}else{
+  return view('login');
+}
 });
 
 Route::get('/login', function () {
@@ -72,3 +89,14 @@ Route::post('signout', function (Request $request) {
   $request->session()->regenerateToken();
   return redirect('/');
 });
+
+//route pour ajouté des critiques
+Route::post('anime/{id}',[CritiqueControllers::class,'addCritique']);
+
+//route pour la page top
+Route::get('/top', [CritiqueControllers::class,'topAnime']);
+
+//route pour la page watchlist
+Route::get('/watchlist', [CritiqueControllers::class,'watchList']);
+
+

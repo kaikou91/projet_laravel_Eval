@@ -8,6 +8,7 @@
 *::after {
     box-sizing: border-box;
 }
+
 body,
 h1,
 h2,
@@ -20,33 +21,40 @@ dl,
 dd {
     margin: 0;
 }
+
 ul[role="list"],
 ol[role="list"] {
     list-style: none;
     padding-left: 0;
 }
+
 html:focus-within {
     scroll-behavior: smooth;
 }
+
 body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
 }
+
 a:not([class]) {
     text-decoration-skip-ink: auto;
 }
+
 img,
 picture {
     max-width: 100%;
     display: block;
 }
+
 input,
 button,
 textarea,
 select {
     font: inherit;
 }
+
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
         scroll-behavior: auto;
@@ -60,6 +68,7 @@ select {
         scroll-behavior: auto !important;
     }
 }
+
 
 /**************
  * APP STYLES
@@ -75,13 +84,14 @@ h2 {
     font-weight: bold;
 }
 
-.flow > * + * {
+.flow>*+* {
     margin-top: 1rem;
 }
 
 header.topnav {
     border-bottom: 1px solid #ccc;
 }
+
 header.topnav .inner {
     display: flex;
     flex-wrap: wrap;
@@ -103,7 +113,7 @@ nav {
     align-items: center;
 }
 
-nav > * {
+nav>* {
     margin: 1rem;
 }
 
@@ -152,7 +162,8 @@ main {
     display: flex;
     margin: -1rem;
 }
-.anime .actions > * {
+
+.anime .actions>* {
     margin: 1rem;
 }
 
@@ -169,7 +180,7 @@ main {
     background: white;
 }
 
-article > * + * {
+article>*+* {
     margin-top: 4rem;
 }
 
@@ -214,12 +225,12 @@ input {
     padding: 0.25rem;
 }
 
-.login form > * + *,
-.signup form > * + * {
+.login form>*+*,
+.signup form>*+* {
     margin-top: 1.5rem;
 }
 
-.input-group > * + * {
+.input-group>*+* {
     margin-top: 0.5rem;
 }
 
@@ -227,4 +238,12 @@ input {
 .login {
     display: grid;
     place-items: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 2px solid;
+    margin-top: 15px;
 }

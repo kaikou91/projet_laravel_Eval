@@ -1,5 +1,5 @@
 <x-layout>
-  <x-slot name="title">
+  <x-slot name="title">   
     {{ $anime->title }}
   </x-slot>
 
@@ -20,6 +20,21 @@
           <button class="cta">Ajouter à ma watchlist</button>
         </form>
       </div>
+
+      <!-- afficher les critiques  -->  
+      <div class="">
+      <ul class="cta">
+            <h2>Avis donner :</h2>
+            @foreach ($critiques as $critique)
+                <li class="list">
+                {{ $critique->username }} : {{ $critique->comment }} </br>
+                Note : {{ $critique->rating }} 
+                </li>
+            @endforeach                                        
+        </ul>
+      </div>     
+       
+               
     </div>
   </article>
 </x-layout>
