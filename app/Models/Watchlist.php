@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Critique extends Model
+
+class Watchlist extends Model
 {
-    protected $table = 'reviews';
+    protected $table = 'watchlists';
 
     public $timestamps = false;
 }
-

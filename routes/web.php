@@ -59,6 +59,8 @@ Route::post('/login', function (Request $request) {
     "password" => "required",
   ]);
   if (Auth::attempt($validated)) {
+    $userId = Auth::id();
+    $request->session()->put('user_id',$userId);
     return redirect()->intended('/');
   }
   return back()->withErrors([
@@ -100,5 +102,7 @@ Route::get('/top', [CritiqueControllers::class,'topAnime']);
 
 //route pour la page watchlist
 Route::get('/watchlist', [CritiqueControllers::class,'watchList']);
+
+Route::post('/anime/add_to_watch_list/{id}', [CritiqueControllers::class,'add_to_watch_list']);
 
 

@@ -8,9 +8,9 @@
 <!-- formulaire de critique -->
   <form action="/anime/{id}" method="POST">
     @csrf 
-    <label for="pet-select">Attribuer la note:</label>
+    <label for="note-select">Attribuer la note:</label>
   
-    <select name="pets" id="pet-select">
+    <select name="notes" id="note-select">
         <!-- <option value="">Tapez votre note ici</option> -->
         <option value="1" selected>1</option>
         <option value="2">2</option>

@@ -16,7 +16,12 @@
         <div>
           <a class="cta" href="/anime/{{ $anime->id }}/new_review">Écrire une critique</a>
         </div>
-        <form action="/anime/{{ $anime->id }}/add_to_watch_list" method="POST">
+        <form action="/anime/add_to_watch_list/{{ $anime->id }}" method="POST">
+           @csrf 
+           
+            <input type="hidden" id="idAnime" name="idAnime" value="{{ $anime->id }}">
+            <input type="hidden" id="idUser" name="idUser" value="{{ Auth::user()->id }}">
+
           <button class="cta">Ajouter à ma watchlist</button>
         </form>
       </div>

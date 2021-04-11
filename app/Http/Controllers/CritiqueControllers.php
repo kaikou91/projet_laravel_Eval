@@ -4,6 +4,7 @@ namespace app\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Critique;
+use App\Models\Watchlist;
 use Illuminate\Support\Facades\Auth;
 
 class CritiqueControllers
@@ -13,7 +14,7 @@ class CritiqueControllers
             {                                 
                 //validation des données               
                 $validatedData = $request->validate([        
-                    "pets" => "required",
+                    "notes" => "required",
                     "idUser" => "required",
                     "idAnime" => "required",
                     "user_message" => "required"
@@ -26,7 +27,7 @@ class CritiqueControllers
                 $critique->comment = $validatedData["user_message"];
                 $critique->user_id = $validatedData["idUser"];
                 $critique->anime_id = $validatedData["idAnime"];
-                $critique->rating = $validatedData["pets"];        
+                $critique->rating = $validatedData["notes"];        
                 $critique->save();
                 
                 //vue                                                               
@@ -53,14 +54,47 @@ class CritiqueControllers
             } 
 
     //requete pour la page watchlist
-        public function watchList()
+        public function watchList(Request $request)
             {
                 if (Auth::user()){
+                    $id = $request->session()->get('user_id');
+                    $addToWatchList = DB::table('animes')
+                        
+                        ->join('watchlists', 'anime_id', '=', 'animes.id')
+                        ->select('animes.*')
+                        ->where('watchlists.user_id', '=', $id)
+                        ->get();
+                        return view('watchlist', ["addToWatchList" => $addToWatchList]);
                     
                     return view('watchlist');
                 }else{
                   return view('login');
                 }
             }
-        
+
+    // requete pour ajouté une anime a la watchlist
+        public function add_to_watch_list(Request $request)
+            {              
+                if (Auth::user()){
+
+                    //validation des données               
+                $validatedData = $request->validate([          
+                    "idUser" => "required",
+                    "idAnime" => "required",
+                    ]);
+
+                    // modéle                                
+                $watchlist = new Watchlist();
+
+                //on ajoute la valeur dans la column titre dans la BDD                            
+                
+                $watchlist->user_id = $validatedData["idUser"];
+                $watchlist->anime_id = $validatedData["idAnime"];
+                $watchlist->save();
+                    
+                    return view('watchlist');
+                }else{
+                  return view('login');
+                }
+            }
     }
