@@ -46,7 +46,7 @@ class CritiqueControllers
                         DB::raw('AVG(reviews.rating) as moyenne')                        
                     )
                     ->groupBy('animes.title', 'animes.cover')
-                    ->orderBy('reviews.rating', 'DESC')                    
+                    ->orderBy('moyenne', 'DESC')                    
                     ->get();
 
                 return view('top_anime', ["topAnimes" => $topAnimes]);

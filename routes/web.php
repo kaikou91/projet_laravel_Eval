@@ -19,11 +19,13 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
+//route pour la page welcome
 Route::get('/', function () {
   $animes = DB::select("SELECT * FROM animes");
   return view('welcome', ["animes" => $animes]);
 });
 
+//
 Route::get('/anime/{id}', function ($id) {
   $anime = DB::select("SELECT * FROM animes WHERE id = ?", [$id])[0];
   $critiques = DB::table('reviews')
@@ -37,7 +39,7 @@ Route::get('/anime/{id}', function ($id) {
 });
 
 
-// modifier la route 
+// modifier la route pour la page new_rewiew
 Route::get('/anime/{id}/new_review', function ($id) {  
   if (Auth::user()){
     $anime = DB::select("SELECT * FROM animes WHERE id = ?", [$id])[0];

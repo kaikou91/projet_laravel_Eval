@@ -1,9 +1,8 @@
 <x-layout>
     <x-slot name="title">   
-    dd{{$topAnimes}}
+
     </x-slot>
     <h1>Top des animes</h1>
-    
 
     <ul role="list" class="anime-list">
         @foreach($topAnimes as $topAnime)
@@ -19,7 +18,7 @@
             <a class="cta" href="">Note général : </br> {{ $topAnime->moyenne }}</a>
         </li>
         @endforeach
-    </ul>
+  </ul>
 
 
 </x-layout>
