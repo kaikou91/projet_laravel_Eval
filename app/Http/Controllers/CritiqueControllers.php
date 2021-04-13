@@ -65,8 +65,6 @@ class CritiqueControllers
                         ->where('watchlists.user_id', '=', $id)
                         ->get();
                         return view('watchlist', ["addToWatchLists" => $addToWatchLists]);
-                    
-                    return view('watchlist');
                 }else{
                   return view('login');
                 }
@@ -92,7 +90,7 @@ class CritiqueControllers
                 $watchlist->anime_id = $validatedData["idAnime"];
                 $watchlist->save();
                     
-                    return view('watchlist');
+                    return redirect('/watchlist');
                 }else{
                   return view('login');
                 }
