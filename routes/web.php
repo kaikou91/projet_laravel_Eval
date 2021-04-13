@@ -102,7 +102,7 @@ Route::get('/top', [CritiqueControllers::class,'topAnime']);
 
 //route pour la page watchlist
 Route::get('/watchlist', [CritiqueControllers::class,'watchList']);
-
+//route pour ajouter a la page watchlist
 Route::post('/anime/add_to_watch_list/{id}', [CritiqueControllers::class,'add_to_watch_list']);
 
 

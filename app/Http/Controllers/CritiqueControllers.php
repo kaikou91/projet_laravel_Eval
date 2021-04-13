@@ -58,13 +58,13 @@ class CritiqueControllers
             {
                 if (Auth::user()){
                     $id = $request->session()->get('user_id');
-                    $addToWatchList = DB::table('animes')
+                    $addToWatchLists = DB::table('animes')
                         
                         ->join('watchlists', 'anime_id', '=', 'animes.id')
                         ->select('animes.*')
                         ->where('watchlists.user_id', '=', $id)
                         ->get();
-                        return view('watchlist', ["addToWatchList" => $addToWatchList]);
+                        return view('watchlist', ["addToWatchLists" => $addToWatchLists]);
                     
                     return view('watchlist');
                 }else{
